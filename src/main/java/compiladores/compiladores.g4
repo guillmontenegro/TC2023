@@ -8,6 +8,7 @@ fragment LETRA : [A-Za-z] ;
 fragment DIGITO : [0-9] ;
 
 NUMERO : DIGITO+ ;
+WS : [ \n\t\r] -> skip ;
 OTRO : . ;
 
 ID : (LETRA | '_')(LETRA | DIGITO | '_')+ ;
