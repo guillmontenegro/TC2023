@@ -1,0 +1,25 @@
+grammar compiladores;
+
+@header {
+package compiladores;
+}
+
+fragment DIGITO : [0-9] ;
+fragment DOSDIGITOS : (DIGITO)(DIGITO) ;
+fragment CUATRODIGITOS : (DOSDIGITOS)(DOSDIGITOS) ;
+fragment MESPAR : '0'[2468]|'1'[02] ;
+
+WS : [ \n\t\r] -> skip ;
+OTRO : . -> skip;
+
+
+DD_MM_YYYY_MES_PAR : DOSDIGITOS'/'MESPAR'/'CUATRODIGITOS ;
+HH_MM_DE_0080_A_1259: ('0'[89]|'1'[012])':'[012345]DIGITO ;
+HH_MM_DE_1830_A_2130: ('18:'[345]DIGITO)|(('19'|'20')':'[012345]DIGITO)|('21:'(([012]DIGITO)|'30')) ;
+
+
+s : DD_MM_YYYY_MES_PAR     { System.out.println("\n line " + $DD_MM_YYYY_MES_PAR.getLine() + ": DD_MM_YYYY_MES_PAR ->" + $DD_MM_YYYY_MES_PAR.getText() + "<--"); }         s
+  | HH_MM_DE_0080_A_1259     { System.out.println("\n line " + $HH_MM_DE_0080_A_1259.getLine() + ": HH_MM_DE_0080_A_1259 ->" + $HH_MM_DE_0080_A_1259.getText() + "<--"); }         s
+  | HH_MM_DE_1830_A_2130     { System.out.println("\n line " + $HH_MM_DE_1830_A_2130.getLine() + ": HH_MM_DE_1830_A_2130 ->" + $HH_MM_DE_1830_A_2130.getText() + "<--"); }         s
+  | EOF
+  ;
